@@ -24,8 +24,13 @@
 <meta property="og:description" content="1.1 信息就是 位 + 上下文123456&#x2F;&#x2F; ---hello.c---# include &lt;stdio.h&gt;int main()&amp;#123;	printf(&quot;hello world\n&quot;);	return 0;&amp;#125;  hello.c 程序是以字节序列的方式储存在文件中的（这种方式实际上就是用一个唯一的单字节大小的✦整数值✦来表示每个字符），每个字节都有">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221027161442149.png">
+<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221029191328109.png">
+<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030185001352.png">
+<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030185054412.png">
+<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030185121930.png">
+<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030191316798.png">
 <meta property="article:published_time" content="2022-10-27T07:49:44.000Z">
-<meta property="article:modified_time" content="2022-10-27T08:49:32.293Z">
+<meta property="article:modified_time" content="2022-10-30T11:14:54.585Z">
 <meta property="article:author" content="潘恒康">
 <meta property="article:tag" content="计算机系统概述 编辑器实现过程调用">
 <meta name="twitter:card" content="summary_large_image">
@@ -170,6 +175,18 @@
             </li>
           
         
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/book/">
+                <i class="iconfont icon-book-fill"></i>
+                book
+              </a>
+            </li>
+          
+        
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
@@ -221,7 +238,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          790 字
+          2.1k 字
         
       </span>
     
@@ -232,7 +249,7 @@
         
         
         
-          7 分钟
+          18 分钟
         
       </span>
     
@@ -308,6 +325,34 @@
 <p>​       结果就得到 hello 文件，它是一个可执行目标文件（或者简称为可执行文件），可以被加载到内存中，由系统执行。</p>
 </li>
 </ol>
+<h1 id="1-4-处理器-读并解释-存储在内存中的指令"><a href="#1-4-处理器-读并解释-存储在内存中的指令" class="headerlink" title="1.4 处理器 读并解释 存储在内存中的指令"></a>1.4 处理器 读并解释 存储在内存中的指令</h1><h2 id="1-4-1系统的硬件组成"><a href="#1-4-1系统的硬件组成" class="headerlink" title="1.4.1系统的硬件组成"></a>1.4.1系统的硬件组成</h2><blockquote>
+<p>经典的系统硬件四个部分</p>
+<p>CPU：中央处理单元；ALU：算术&#x2F;逻辑单元；PC：程序计数器；USB：通用串行总线</p>
+</blockquote>
+<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221029191328109.png" srcset="/img/loading.gif" lazyload alt="intel系统产品族的模型" style="zoom:80%;">
+
+<h3 id="总线"><a href="#总线" class="headerlink" title="总线"></a>总线</h3><p>通常总线被设计成传送定长的字节块，也就是<strong>字（word）</strong>。字中的字节数（即字长）是一个基本的系统参数，各个系统中都不尽相同。现在的大多数机器字长要么是 4 个字节（32 位），要么是 8 个字节（64 位）。</p>
+<h3 id="I-x2F-O设备"><a href="#I-x2F-O设备" class="headerlink" title="I&#x2F;O设备"></a>I&#x2F;O设备</h3><p>最初可执行程序是放在磁盘中。<br>每个 I&#x2F;O 设备都通过一个<strong>控制器</strong>或<strong>适配器</strong>与 I&#x2F;O 总线相连。控制器和适配器之间的<strong>区别</strong>主要在于它们的封装方式。控制器是 I&#x2F;O 设备本身或者系统的主印制电路板（通常称作主板）上的<strong>芯片组</strong>。而适配器则是一块<strong>插在主板插槽上的卡</strong>。无论如何，它们的功能都是在 I&#x2F;O 总线和 I&#x2F;O 设备之间传递信息。</p>
+<h3 id="主存"><a href="#主存" class="headerlink" title="主存"></a>主存</h3><p>主存是一个临时存储设备，在处理器执行程序时，用来存放程序和程序处理的数据。从物理上来说，主存是由一组<strong>动态随机存取存储器</strong>（DRAM）芯片组成的。</p>
+<p>从逻辑上看：主存就是一个线性字节数组，每个字节都有唯一的地址（类似数组的索引），这些地址是从0开始的。<br>一般来说，组成程序的每条机器指令都是由不同数量的字节构成。</p>
+<h3 id="处理器"><a href="#处理器" class="headerlink" title="处理器"></a>处理器</h3><p>CPU是解释（或执行）存储在主存中指令的引擎。<br>处理器的核心是一个大小为<strong>一个字</strong>的存储设备（或<strong>寄存器</strong>），称为<strong>程序计数器</strong>（PC）。<br>在任何时刻，PC 都指向主存中的<strong>某条机器语言指令</strong>（即含有该条指令的地址）。</p>
+<p>从系统通电开始，直到系统断电，处理器一直<strong>执行</strong>程序计数器指向的指令，然后再<strong>更新</strong>程序计数器，使其指向下一条指令。</p>
+<h2 id="1-4-2-运行hello程序"><a href="#1-4-2-运行hello程序" class="headerlink" title="1.4.2 运行hello程序"></a>1.4.2 运行hello程序</h2><ol>
+<li><p>shell程序执行指令，等我们输入一个命令。当我们在键盘上输入字符串“.&#x2F;hello”，<strong>shell程序将字符逐一读入寄存器中，再把它放到内存中</strong>。遇到回车，结束命令输入。</p>
+<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030185001352.png" srcset="/img/loading.gif" lazyload alt="键盘输入指令./hello指令" style="zoom: 80%;">
+</li>
+<li><p>shell开始<strong>执行指令</strong>来<strong>加载可执行hello文件</strong>，并且这些指令将<strong>hello目标文件中的代码和数据</strong>从磁盘复制到主存。其中数据包括最终会被输出的字符串“hello world\n”</p>
+</li>
+<li><p>利用DMA技术，数据可以不通过处理器而直接从磁盘到达主存中。</p>
+<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030185054412.png" srcset="/img/loading.gif" lazyload alt="DMA技术" style="zoom: 80%;">
+</li>
+<li><p>目标文件hello中的<strong>代码和数据</strong>被加载到主存，处理器就开始执行hello程序的main程序中的机器语言指令。这些指令将“hello world\n”字符串中的字节从<strong>内存复制到寄存器文件</strong>，再从<strong>寄存器文件中复制到显示设备</strong>。<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030185121930.png" srcset="/img/loading.gif" lazyload alt="运行hello程序显示结果" style="zoom:50%;"></p>
+</li>
+</ol>
+<h1 id="1-5-高速缓存至关重要"><a href="#1-5-高速缓存至关重要" class="headerlink" title="1.5 高速缓存至关重要"></a>1.5 高速缓存至关重要</h1><h2 id="1-5-1-CPU运行速度很快，磁盘读写很慢，如何解决速度差"><a href="#1-5-1-CPU运行速度很快，磁盘读写很慢，如何解决速度差" class="headerlink" title="1.5.1 CPU运行速度很快，磁盘读写很慢，如何解决速度差"></a>1.5.1 CPU运行速度很快，磁盘读写很慢，如何解决速度差</h2><p>​       针对这种处理器与主存之间的差异，系统设计者采用了更小更快的存储设备，称为<strong>高速缓存存储器</strong>（cache memory，简称为 cache 或高速缓存），作为暂时的集结区域，存放处理器近期可能会需要的信息。<br>​        比较新的、处理能力更强大的系统甚至有三级高速缓存∶L1、L2 和 L3。系统可以获得一个很大的存储器，同时访问速度也很快，原因是利用了<strong>高速缓存的局部性原理</strong>：即程序具有访问局部区域里的数据和代码的趋势。通过让高速缓存里存放可能经常访问的数据，大部分的内存操作都能在快速的高速缓存中完成。</p>
+<h1 id="1-6-存储设备形成层次结构"><a href="#1-6-存储设备形成层次结构" class="headerlink" title="1.6 存储设备形成层次结构"></a>1.6 存储设备形成层次结构</h1><img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030191316798.png" srcset="/img/loading.gif" lazyload alt="存储器层次结构示例" style="zoom:80%;">
+
+<p>经典图例，多级缓存来提高计算机的运行速度</p>
 
                 
               </div>
