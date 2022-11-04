@@ -16,27 +16,27 @@
   <meta name="author" content="潘恒康">
   <meta name="keywords" content="cpp">
   
-    <meta name="description" content="程序如何运行起来的？参考：https:&#x2F;&#x2F;time.geekbang.org&#x2F;article&#x2F;369457?code&#x3D;Wsnr97yd4YlBVh6-MIULynIv89rgEjd5QOG0Z1a9Jp0%3D 和 CSAPP 程序的编译过程   预处理：预处理器（cpp） ​      将源程序进行预处理替换。例如#include XXX，就会将XXX文件内容替换到这个源程序中 #define">
+    <meta name="description" content="Hello Os引导流程  PC机BIOS固件是固化在PC机主板上的ROM芯片中，掉电也是可以保护的，PC机上电之后第一条指令就是BIOS固件中的，它负责检测和初始化CPU、内存以及主板平台，然后加载引导设备的第一个扇区数据，到0x7c00地址开始的内存空间，然后再接着跳转到0x7c00处执行指令，在我们这里的情况下就是GRUB引导程序。 Hello OS引导汇编代码为什么不用C？C 作为通用的高">
 <meta property="og:type" content="article">
-<meta property="og:title" content="操作系统实战1-程序如何运行的">
-<meta property="og:url" content="http://example.com/2022/10/30/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9E%E6%88%9845%E8%AE%B2-%E7%AC%AC%E4%B8%80%E8%AE%B2/index.html">
+<meta property="og:title" content="操作系统实战2-实现一个最简单的内核">
+<meta property="og:url" content="http://example.com/2022/10/31/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9E%E6%88%9845%E8%AE%B2-%E7%AC%AC%E4%BA%8C%E8%AE%B2/index.html">
 <meta property="og:site_name" content="phk&#39;s blog">
-<meta property="og:description" content="程序如何运行起来的？参考：https:&#x2F;&#x2F;time.geekbang.org&#x2F;article&#x2F;369457?code&#x3D;Wsnr97yd4YlBVh6-MIULynIv89rgEjd5QOG0Z1a9Jp0%3D 和 CSAPP 程序的编译过程   预处理：预处理器（cpp） ​      将源程序进行预处理替换。例如#include XXX，就会将XXX文件内容替换到这个源程序中 #define">
+<meta property="og:description" content="Hello Os引导流程  PC机BIOS固件是固化在PC机主板上的ROM芯片中，掉电也是可以保护的，PC机上电之后第一条指令就是BIOS固件中的，它负责检测和初始化CPU、内存以及主板平台，然后加载引导设备的第一个扇区数据，到0x7c00地址开始的内存空间，然后再接着跳转到0x7c00处执行指令，在我们这里的情况下就是GRUB引导程序。 Hello OS引导汇编代码为什么不用C？C 作为通用的高">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221027161442149.png">
-<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030161348684.png">
-<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030161543221.png">
-<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030162808811.png">
-<meta property="article:published_time" content="2022-10-30T08:08:00.000Z">
-<meta property="article:modified_time" content="2022-10-30T08:34:31.996Z">
+<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221031152405319.png">
+<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221031160920947.png">
+<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221031153011708.png">
+<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221031153100216.png">
+<meta property="article:published_time" content="2022-10-31T07:08:00.000Z">
+<meta property="article:modified_time" content="2022-10-31T10:37:45.967Z">
 <meta property="article:author" content="潘恒康">
-<meta property="article:tag" content="图灵 冯诺依曼">
+<meta property="article:tag" content="汇编 make">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221027161442149.png">
+<meta name="twitter:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221031152405319.png">
   
   
   
-  <title>操作系统实战1-程序如何运行的 - phk&#39;s blog</title>
+  <title>操作系统实战2-实现一个最简单的内核 - phk&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -213,7 +213,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="操作系统实战1-程序如何运行的"></span>
+            <span id="subtitle" data-typed-text="操作系统实战2-实现一个最简单的内核"></span>
           
         </div>
 
@@ -224,8 +224,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-30 16:08" pubdate>
-          2022年10月30日 下午
+        <time datetime="2022-10-31 15:08" pubdate>
+          2022年10月31日 下午
         </time>
       </span>
     
@@ -236,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k 字
+          2k 字
         
       </span>
     
@@ -247,7 +247,7 @@
         
         
         
-          16 分钟
+          17 分钟
         
       </span>
     
@@ -295,78 +295,46 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">操作系统实战1-程序如何运行的</h1>
+            <h1 style="display: none">操作系统实战2-实现一个最简单的内核</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="程序如何运行起来的？"><a href="#程序如何运行起来的？" class="headerlink" title="程序如何运行起来的？"></a>程序如何运行起来的？</h1><p>参考：<a target="_blank" rel="noopener" href="https://time.geekbang.org/article/369457?code=Wsnr97yd4YlBVh6-MIULynIv89rgEjd5QOG0Z1a9Jp0=">https://time.geekbang.org/article/369457?code=Wsnr97yd4YlBVh6-MIULynIv89rgEjd5QOG0Z1a9Jp0%3D</a> 和 CSAPP</p>
-<h2 id="程序的编译过程"><a href="#程序的编译过程" class="headerlink" title="程序的编译过程"></a>程序的编译过程</h2><img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221027161442149.png" srcset="/img/loading.gif" lazyload alt="编译四部曲" style="zoom:150%;" />
+                <h2 id="Hello-Os引导流程"><a href="#Hello-Os引导流程" class="headerlink" title="Hello Os引导流程"></a>Hello Os引导流程</h2><img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221031152405319.png" srcset="/img/loading.gif" lazyload alt="Hello OS引导流程图" style="zoom:80%;" />
 
-<ol>
-<li><p><strong>预处理</strong>：预处理器（cpp）</p>
-<p>​      将源程序进行预处理替换。例如#include XXX，就会将XXX文件内容替换到这个源程序中 #define  XXX进行宏替换 #ifndef 将不必要的代码进行过滤。<em>注意typedef不是简单替换</em>。</p>
-</li>
-<li><p><strong>编译</strong>：编译器（ccl）</p>
-<p>​       将预处理的源文件（.i 文件）编译成汇编语言程序。.s<br>​       通过词法分析与语法分析，再确认所有指令符合语法规则后，将其<strong>翻译为等价的代码表达式汇编代码</strong>。</p>
-</li>
-<li><p><strong>汇编</strong>：汇编器（as）</p>
-<p>​      汇编器将hello.s翻译成机器指令，将指令打包成一种”可重定位的目标程序，并将结果保存在目标文件中“目标文件分成两段：<br>​       代码段：程序指令，可读、可执行、不可写<br>​       数据段：放程序的全局变量或者静态变量</p>
-</li>
-<li><p><strong>链接</strong>：链接器（ld）</p>
-<p>​       将有关的<strong>目标文件</strong>彼此链接，也将在一个<strong>文件中引用的符号</strong>同<strong>该符号</strong>在<strong>另一个文件</strong>中定义<strong>链接在一起</strong>，使得所有这些目标文件成为一个<strong>可以装入操作系统</strong>的<strong>统一整体</strong>。</p>
-<p>​       结果就得到 hello 文件，它是一个可执行目标文件（或者简称为可执行文件），可以被加载到内存中，由系统执行。</p>
-</li>
-</ol>
-<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030161348684.png" srcset="/img/loading.gif" lazyload alt="编译流程" style="zoom:67%;" />
+<p>PC机BIOS固件是固化在PC机主板上的<strong>ROM芯片</strong>中，掉电也是可以保护的，PC机上电之后<strong>第一条指令</strong>就是BIOS固件中的，它负责<strong>检测和初始化CPU、内存以及主板平台</strong>，然后加载<strong>引导设备</strong>的第一个扇区数据，到0x7c00地址开始的<strong>内存空间</strong>，然后再接着跳转到0x7c00处<strong>执行指令</strong>，在我们这里的情况下就是GRUB引导程序。</p>
+<h2 id="Hello-OS引导汇编代码"><a href="#Hello-OS引导汇编代码" class="headerlink" title="Hello OS引导汇编代码"></a>Hello OS引导汇编代码</h2><h3 id="为什么不用C？"><a href="#为什么不用C？" class="headerlink" title="为什么不用C？"></a>为什么不用C？</h3><p>C 作为通用的高级语言，<strong>不能直接操作特定的硬件</strong>，而且 C 语言的函数调用、函数传参，都需要用<strong>栈</strong>。</p>
+<h3 id="汇编部分的主要功能模块："><a href="#汇编部分的主要功能模块：" class="headerlink" title="汇编部分的主要功能模块："></a>汇编部分的主要功能模块：</h3><p>1、GRUB多引导协议标准。</p>
+<p>2、关掉中断，设定CPU的工作模式</p>
+<p>3、初始化CPU的寄存器和C语言的运行环境</p>
+<p>4、初始化工作模式的数据，会调用C语言写的主函数</p>
+<h2 id="控制计算机屏幕"><a href="#控制计算机屏幕" class="headerlink" title="控制计算机屏幕"></a>控制计算机屏幕</h2><p>显卡的字符模式的工作细节：</p>
+<p>它把屏幕分成 24 行，每行 80 个字符，把这（24*80）个位置映射到以 <strong>0xb8000</strong> 地址开始的内存中，每两个字节对应一个字符，其中一个字节是字符的 ASCII 码，另一个字节为字符的颜色值。如下图所示：</p>
+<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221031160920947.png" srcset="/img/loading.gif" lazyload alt="计算机显卡文本工作模式" style="zoom:150%;" />
 
-<h2 id="程序装载执行"><a href="#程序装载执行" class="headerlink" title="程序装载执行"></a>程序装载执行</h2><h3 id="图灵机"><a href="#图灵机" class="headerlink" title="图灵机"></a>图灵机</h3><p>图灵机是一个抽象的模型，它是这样的：有一条<strong>无限长</strong>的纸带，纸带上有无限个小格子，小格子中写有相关的信息，纸带上有一个<strong>读头</strong>，读头能根据纸带小格子里的信息做相关的操作并能<strong>来回移动</strong>。</p>
-<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030161543221.png" srcset="/img/loading.gif" lazyload alt="图灵机模型" style="zoom:150%;" />
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-type">void</span> _strwrite(<span class="hljs-type">char</span>* <span class="hljs-built_in">string</span>)<br>&#123;<br>  <span class="hljs-type">char</span>* p_strdst = (<span class="hljs-type">char</span>*)(<span class="hljs-number">0xb8000</span>);<span class="hljs-comment">//指向显存的开始地址</span><br>  <span class="hljs-keyword">while</span> (*<span class="hljs-built_in">string</span>)<br>  &#123;<br>    *p_strdst = *<span class="hljs-built_in">string</span>++;<br>    p_strdst += <span class="hljs-number">2</span>;<br>  &#125;<br>  <span class="hljs-keyword">return</span>;<br>&#125;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">printf</span><span class="hljs-params">(<span class="hljs-type">char</span>* fmt, ...)</span><br>&#123;<br>  _strwrite(fmt);<br>  <span class="hljs-keyword">return</span>;<br>&#125;<br><span class="hljs-comment">//printf 函数直接调用了 _strwrite 函数，</span><br><span class="hljs-comment">//而 _strwrite 函数正是将字符串里每个字符依次定入到 0xb8000 地址开始的显存中，</span><br><span class="hljs-comment">//而 p_strdst 每次加 2，这也是为了跳过字符的颜色信息的空间。</span><br><br></code></pre></td></tr></table></figure>
 
-<h3 id="冯诺依曼体系结构"><a href="#冯诺依曼体系结构" class="headerlink" title="冯诺依曼体系结构"></a>冯诺依曼体系结构</h3><p><strong>电子计算机使用二进制数制系统和储存程序，并按照程序顺序执行。</strong>冯诺依曼体系结构的核心</p>
-<p>根据冯诺依曼体系结构构成的计算机，必须具有如下功能以及组件：</p>
-<table>
-<thead>
-<tr>
-<th>功能</th>
-<th>组件</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>把程序和数据装入到计算机中</td>
-<td>装载数据和程序的输入设备</td>
-</tr>
-<tr>
-<td>必须具有长期记住程序、数据的中间结果及最终运算结果</td>
-<td>记住程序和数据的存储器</td>
-</tr>
-<tr>
-<td>完成各种算术、逻辑运算和数据传送等数据加工处理</td>
-<td>完成数据加工处理的运算器</td>
-</tr>
-<tr>
-<td>根据需要控制程序走向，并能根据指令控制机器的各部件协调操作</td>
-<td>控制程序执行的控制器</td>
-</tr>
-<tr>
-<td>能够按照要求将处理的数据结果显示给用户</td>
-<td>显示处理结果的输出设备。</td>
-</tr>
-</tbody></table>
-<h2 id="HelloWord程序装入原型计算机"><a href="#HelloWord程序装入原型计算机" class="headerlink" title="HelloWord程序装入原型计算机"></a>HelloWord程序装入原型计算机</h2><p>对hello进行反编译操作，使用odjump操作，以下main部分函数代码</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">000000000000063a</span> &lt;main&gt;:<br>  <span class="hljs-attribute">1</span>列         <span class="hljs-number">2</span>列                            <span class="hljs-number">3</span>列                            <span class="hljs-number">4</span>列<br> <span class="hljs-attribute">63a</span>:	<span class="hljs-number">55</span>                   	push   %rbp<br> <span class="hljs-attribute">63b</span>:	<span class="hljs-number">48</span> <span class="hljs-number">89</span> e5             	mov    %rsp,%rbp<br> <span class="hljs-attribute">63e</span>:	<span class="hljs-number">48</span> <span class="hljs-number">83</span> ec <span class="hljs-number">10</span>          	sub    $<span class="hljs-number">0</span>x10,%rsp<br> <span class="hljs-attribute">642</span>:	<span class="hljs-number">89</span> <span class="hljs-number">7</span>d fc             	mov    %edi,-<span class="hljs-number">0</span>x4(%rbp)<br> <span class="hljs-attribute">645</span>:	<span class="hljs-number">48</span> <span class="hljs-number">89</span> <span class="hljs-number">75</span> f0          	mov    %rsi,-<span class="hljs-number">0</span>x10(%rbp)<br> <span class="hljs-attribute">649</span>:	<span class="hljs-number">48</span> <span class="hljs-number">8</span>d <span class="hljs-number">3</span>d <span class="hljs-number">94</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	lea    <span class="hljs-number">0</span>x94(%rip),%rdi        # <span class="hljs-number">6</span>e4 &lt;_IO_stdin_used+<span class="hljs-number">0</span>x4&gt;<br> <span class="hljs-attribute">650</span>:	e8 bb fe ff ff       	callq  <span class="hljs-number">510</span> &lt;puts@plt&gt;<br> <span class="hljs-attribute">655</span>:	b8 <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span>       	mov    $<span class="hljs-number">0</span>x0,%eax<br> <span class="hljs-attribute">65a</span>:	c9                   	leaveq <br> <span class="hljs-attribute">65b</span>:	c3                   	retq   <br> <span class="hljs-attribute">65c</span>:	<span class="hljs-number">0</span>f <span class="hljs-number">1</span>f <span class="hljs-number">40</span> <span class="hljs-number">00</span>          	nopl   <span class="hljs-number">0</span>x0(%rax)<br></code></pre></td></tr></table></figure>
 
-<p>分成四列：第一列为<strong>地址</strong>；第二列为十六进制，表示<strong>真正装入机器中的代码数据</strong>；第三列是对应的汇编代码；第四列是相关代码的注释。这是 x86_64 体系的代码，由此可以看出 x86 CPU 是变长指令集。</p>
-<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030162808811.png" srcset="/img/loading.gif" lazyload alt="helloworld文件加载到冯诺依曼模型" style="zoom:150%;" />
 
-<p>CPU在图灵机纸带上操作</p>
-<h2 id="思考：call-和-ret-指令在逻辑上执行的操作？"><a href="#思考：call-和-ret-指令在逻辑上执行的操作？" class="headerlink" title="思考：call 和 ret 指令在逻辑上执行的操作？"></a>思考：call 和 ret 指令在逻辑上执行的操作？</h2><p>为了实现 C 语言中函数的调用和返回功能，CPU 实现了函数调用和返回指令，即上图汇编代码中的“call”，“ret”指令，请你思考一下：call 和 ret 指令在逻辑上执行的操作是怎样的呢？</p>
-<p> 首先假设CPU执行指令是顺序执行的，那么程序的调用需要考虑几个问题: </p>
-<p>1，call指令要执行的代码在哪？也就是被调用函数的第一条指令所在的内存地址 </p>
-<p>2，被调用函数执行完之后，返回哪个位置继续执行？ </p>
-<p>只要解决<strong>上面这两个问题</strong>，那么函数调用时指令的间的跳转就迎刃而解了。 </p>
-<p>针对第一个问题，在gcc编译完成之后，<strong>函数对应的指令序列所在的位置就已经确定了</strong>，因此这是编译阶段需要考虑的问题 </p>
-<p>至于第二个问题，<strong>在执行完call指令的同时</strong>，需要将call指令下面一条<strong>指令的地址保存到栈内存中</strong>，同时更新%rsp寄存器指向的位置，然后就可以开始执行被调函数的指令序列，执行完毕后，<strong>由ret指令从rsp中获取栈顶的returnadress地址</strong>，然后跳转到call的下一条指令继续执行。</p>
+<h2 id="makefile"><a href="#makefile" class="headerlink" title="makefile"></a>makefile</h2><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><br>CC = gcc <span class="hljs-comment">#定义一个宏CC 等于gcc</span><br>CFLAGS = -c <span class="hljs-comment">#定义一个宏 CFLAGS 等于-c</span><br>OBJS_FILE = file.o file1.o file2.o file3.o file4.o <span class="hljs-comment">#定义一个宏</span><br>.PHONY : all everything <span class="hljs-comment">#定义两个伪目标all、everything</span><br><span class="hljs-section">all:everything #伪目标all依赖于伪目标everything</span><br>everything :<span class="hljs-variable">$(OBJS_FILE)</span> <span class="hljs-comment">#伪目标everything依赖于OBJS_FILE，而OBJS_FILE是宏会被</span><br><span class="hljs-comment">#替换成file.o file1.o file2.o file3.o file4.o</span><br>%.o : %.c<br>   <span class="hljs-variable">$(CC)</span> <span class="hljs-variable">$(CFLAGS)</span> -o <span class="hljs-variable">$@</span> <span class="hljs-variable">$&lt;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="Linux-0-11-引导流程"><a href="#Linux-0-11-引导流程" class="headerlink" title="Linux 0.11 引导流程"></a>Linux 0.11 引导流程</h2><h3 id="总体功能介绍"><a href="#总体功能介绍" class="headerlink" title="总体功能介绍"></a>总体功能介绍</h3><p>1、PC电源启动，80x86结构的CPU自动进入<strong>实模式</strong>。从地址<strong>0xFFFF0</strong>开始自动执行程序代码，地址通常是ROM-BIOS的地址。</p>
+<p><strong>实模式介绍</strong>：内存寻址方式和8086相同，当时由于CPU的性能有限，一共只有20位地址线（所以地址空间只有1MB），以及8个16位的通用寄存器，以及4个16位的段寄存器。所以为了能够通过这些16位的寄存器去构成20位的主存地址，必须采取一种特殊的方式。当某个指令想要访问某个内存地址时，它通常需要用下面的这种格式来表示：(段基址：段偏移量)</p>
+<p>2、PC机从物理地址0处开始<em>初始化中断向量</em>，之后启动设备的第一个扇区（磁盘的引导扇区，512字节）读入到内存的0x7C00处，调到此处开始执行。</p>
+<h3 id="文件功能介绍"><a href="#文件功能介绍" class="headerlink" title="文件功能介绍"></a>文件功能介绍</h3><p>boot&#x2F;bootsect.s——（<strong>第一次加载</strong>）将BIOS读入到内存的绝对地址处（0x7C00），（<strong>第一次转移位置</strong>）当他被执行时，会把自己移动到内存0x90000处，并（<strong>第二次加载</strong>）把启动设备中后2KB字节代码（boot&#x2F;setup.s）读入到内存0x90200处，将system模块读入到内存地址0x10000处</p>
+<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221031153011708.png" srcset="/img/loading.gif" lazyload alt="系统加电起，到执行程序的顺序" style="zoom:120%;" />
+
+<p>问题1：为什么setup.s要在0x90000处?</p>
+<p>因为system模块长度不会超过512kb(0x80000)字节大小，将setup.s放在0x90000是安全的.</p>
+<p>问题2：system模块要从0x10000处开始加载？</p>
+<p>因为setup代码执行可能会利用ROM BIOS的中断调用来获取机器参数。BIOS初始化会在物理内存开始处放一个0x400的中断向量表。</p>
+<p>问题3：为什么要把bootsect.s转移到0x90000?</p>
+<p>bootsect在执行过程中会加载system模块进入内存，并放置在0x10000处，system模块的大小不超过512kB的空间，所以从0x10000到0x8ffff都是预留给system模块的，为保证bootsect正常执行，需要把自己放在0x90000处开始执行。</p>
+<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221031153100216.png" srcset="/img/loading.gif" lazyload alt="启动引导内核在内存中位置和移动后的位置情况" style="zoom:110%;" />
+
+<p>setup会识别硬件参数，并将整个系统从地址0x10000移动到0处，进入保护模式跳转到系统的余下部分</p>
 
                 
               </div>
@@ -379,7 +347,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%9B%BE%E7%81%B5-%E5%86%AF%E8%AF%BA%E4%BE%9D%E6%9B%BC/">#图灵 冯诺依曼</a>
+        <a href="/tags/%E6%B1%87%E7%BC%96-make/">#汇编 make</a>
       
     </div>
   
@@ -391,8 +359,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>操作系统实战1-程序如何运行的</div>
-      <div>http://example.com/2022/10/30/操作系统实战45讲-第一讲/</div>
+      <div>操作系统实战2-实现一个最简单的内核</div>
+      <div>http://example.com/2022/10/31/操作系统实战45讲-第二讲/</div>
     </div>
     <div class="license-meta">
       
@@ -404,7 +372,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年10月30日</div>
+          <div>2022年10月31日</div>
         </div>
       
       
@@ -436,18 +404,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/10/30/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="动态规划">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">动态规划</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/10/27/%E5%8A%9B%E6%89%A3%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" title="力扣每日一题">
-                        <span class="hidden-mobile">力扣每日一题</span>
+                      <a href="/2022/10/30/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="动态规划">
+                        <span class="hidden-mobile">动态规划</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

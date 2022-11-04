@@ -298,7 +298,7 @@
               <div class="markdown-body">
                 
                 <p>本文主要是在学习<a target="_blank" rel="noopener" href="https://xiaolincoding.com/%E8%BF%87%E7%A8%8B%E4%B8%AD%E5%81%9A%E7%9A%84%E7%AC%94%E8%AE%B0">https://xiaolincoding.com/过程中做的笔记</a><br>膜拜小林coding大神！</p>
-<h1 id="TCP基础"><a href="#TCP基础" class="headerlink" title="TCP基础"></a>TCP基础</h1><h2 id="TCP头部格式"><a href="#TCP头部格式" class="headerlink" title="TCP头部格式"></a>TCP头部格式</h2><img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/aHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL3hpYW9saW5jb2Rlci9JbWFnZUhvc3QyLyVFOCVBRSVBMSVFNyVBRSU5NyVFNiU5QyVCQSVFNyVCRCU5MSVFNyVCQiU5Qy9UQ1AtJUU0JUI4JTg5JUU2JUFDJUExJUU2JThGJUExJUU2JTg5JThCJUU1JTkyJThDJUU1JTlCJTlCJUU2JUFDJUExJUU2JThDJUE1JUU2JTg5JThCLzYuanBn" srcset="/img/loading.gif" lazyload alt="TCP 头格式" style="zoom: 50%;">
+<h1 id="TCP基础"><a href="#TCP基础" class="headerlink" title="TCP基础"></a>TCP基础</h1><h2 id="TCP头部格式"><a href="#TCP头部格式" class="headerlink" title="TCP头部格式"></a>TCP头部格式</h2><img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/aHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL3hpYW9saW5jb2Rlci9JbWFnZUhvc3QyLyVFOCVBRSVBMSVFNyVBRSU5NyVFNiU5QyVCQSVFNyVCRCU5MSVFNyVCQiU5Qy9UQ1AtJUU0JUI4JTg5JUU2JUFDJUExJUU2JThGJUExJUU2JTg5JThCJUU1JTkyJThDJUU1JTlCJTlCJUU2JUFDJUExJUU2JThDJUE1JUU2JTg5JThCLzYuanBn" srcset="/img/loading.gif" lazyload alt="TCP 头格式" style="zoom: 50%;" />
 
 <p><strong>序列号</strong>：在建立连接时，由计算机生成的随机数作为初始值，通过SYN包传送给接收端主机，没发送一次数据，就会“累加”一次该”数据字节数”的大小。主要用来解决网络包乱序的问题。</p>
 <p><strong>确认应答号</strong>：指下一次*”期望”<em>收到数据的序列号，发送端收到这个确认应答之后就可以认为在这个序列号以前的数据都已经被正常的接受。主要用来解决</em>丢包*问题。</p>

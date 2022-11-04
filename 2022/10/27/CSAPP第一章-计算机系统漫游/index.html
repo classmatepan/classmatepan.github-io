@@ -29,8 +29,10 @@
 <meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030185054412.png">
 <meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030185121930.png">
 <meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030191316798.png">
+<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221031184610988.png">
+<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221031190215689.png">
 <meta property="article:published_time" content="2022-10-27T07:49:44.000Z">
-<meta property="article:modified_time" content="2022-10-30T11:14:54.585Z">
+<meta property="article:modified_time" content="2022-10-31T11:12:19.906Z">
 <meta property="article:author" content="潘恒康">
 <meta property="article:tag" content="计算机系统概述 编辑器实现过程调用">
 <meta name="twitter:card" content="summary_large_image">
@@ -238,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          3.1k 字
         
       </span>
     
@@ -249,7 +251,7 @@
         
         
         
-          18 分钟
+          26 分钟
         
       </span>
     
@@ -308,7 +310,7 @@
 <p>像hello.c这种只是由ASCII字符构成的文件称为 <strong>文本文件</strong></p>
 <p>其他的都是 <strong>二进制文件</strong></p>
 <p>基本思想：<strong>系统中所有的信息</strong>——包括磁盘文件、内存中的程序、内存中存放的用户数据以及网络上传送的数据，都是由<strong>一串比特表示的</strong>。<strong>区分</strong>不同数据对象的<strong>唯一方法</strong>是我们读到这些数据对象时的<strong>上下文</strong>。</p>
-<h1 id="1-2-程序被其他程序翻译成不同的格式"><a href="#1-2-程序被其他程序翻译成不同的格式" class="headerlink" title="1.2 程序被其他程序翻译成不同的格式"></a>1.2 程序被其他程序翻译成不同的格式</h1><img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221027161442149.png" srcset="/img/loading.gif" lazyload alt="编译四部曲" style="zoom:150%;">
+<h1 id="1-2-程序被其他程序翻译成不同的格式"><a href="#1-2-程序被其他程序翻译成不同的格式" class="headerlink" title="1.2 程序被其他程序翻译成不同的格式"></a>1.2 程序被其他程序翻译成不同的格式</h1><img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221027161442149.png" srcset="/img/loading.gif" lazyload alt="编译四部曲" style="zoom:150%;" />
 
 <ol>
 <li><p><strong>预处理</strong>：预处理器（cpp）</p>
@@ -329,7 +331,7 @@
 <p>经典的系统硬件四个部分</p>
 <p>CPU：中央处理单元；ALU：算术&#x2F;逻辑单元；PC：程序计数器；USB：通用串行总线</p>
 </blockquote>
-<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221029191328109.png" srcset="/img/loading.gif" lazyload alt="intel系统产品族的模型" style="zoom:80%;">
+<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221029191328109.png" srcset="/img/loading.gif" lazyload alt="intel系统产品族的模型" style="zoom:80%;" />
 
 <h3 id="总线"><a href="#总线" class="headerlink" title="总线"></a>总线</h3><p>通常总线被设计成传送定长的字节块，也就是<strong>字（word）</strong>。字中的字节数（即字长）是一个基本的系统参数，各个系统中都不尽相同。现在的大多数机器字长要么是 4 个字节（32 位），要么是 8 个字节（64 位）。</p>
 <h3 id="I-x2F-O设备"><a href="#I-x2F-O设备" class="headerlink" title="I&#x2F;O设备"></a>I&#x2F;O设备</h3><p>最初可执行程序是放在磁盘中。<br>每个 I&#x2F;O 设备都通过一个<strong>控制器</strong>或<strong>适配器</strong>与 I&#x2F;O 总线相连。控制器和适配器之间的<strong>区别</strong>主要在于它们的封装方式。控制器是 I&#x2F;O 设备本身或者系统的主印制电路板（通常称作主板）上的<strong>芯片组</strong>。而适配器则是一块<strong>插在主板插槽上的卡</strong>。无论如何，它们的功能都是在 I&#x2F;O 总线和 I&#x2F;O 设备之间传递信息。</p>
@@ -339,20 +341,42 @@
 <p>从系统通电开始，直到系统断电，处理器一直<strong>执行</strong>程序计数器指向的指令，然后再<strong>更新</strong>程序计数器，使其指向下一条指令。</p>
 <h2 id="1-4-2-运行hello程序"><a href="#1-4-2-运行hello程序" class="headerlink" title="1.4.2 运行hello程序"></a>1.4.2 运行hello程序</h2><ol>
 <li><p>shell程序执行指令，等我们输入一个命令。当我们在键盘上输入字符串“.&#x2F;hello”，<strong>shell程序将字符逐一读入寄存器中，再把它放到内存中</strong>。遇到回车，结束命令输入。</p>
-<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030185001352.png" srcset="/img/loading.gif" lazyload alt="键盘输入指令./hello指令" style="zoom: 80%;">
+<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030185001352.png" srcset="/img/loading.gif" lazyload alt="键盘输入指令./hello指令" style="zoom: 80%;" />
 </li>
 <li><p>shell开始<strong>执行指令</strong>来<strong>加载可执行hello文件</strong>，并且这些指令将<strong>hello目标文件中的代码和数据</strong>从磁盘复制到主存。其中数据包括最终会被输出的字符串“hello world\n”</p>
 </li>
 <li><p>利用DMA技术，数据可以不通过处理器而直接从磁盘到达主存中。</p>
-<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030185054412.png" srcset="/img/loading.gif" lazyload alt="DMA技术" style="zoom: 80%;">
+<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030185054412.png" srcset="/img/loading.gif" lazyload alt="DMA技术" style="zoom: 80%;" />
 </li>
-<li><p>目标文件hello中的<strong>代码和数据</strong>被加载到主存，处理器就开始执行hello程序的main程序中的机器语言指令。这些指令将“hello world\n”字符串中的字节从<strong>内存复制到寄存器文件</strong>，再从<strong>寄存器文件中复制到显示设备</strong>。<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030185121930.png" srcset="/img/loading.gif" lazyload alt="运行hello程序显示结果" style="zoom:50%;"></p>
+<li><p>目标文件hello中的<strong>代码和数据</strong>被加载到主存，处理器就开始执行hello程序的main程序中的机器语言指令。这些指令将“hello world\n”字符串中的字节从<strong>内存复制到寄存器文件</strong>，再从<strong>寄存器文件中复制到显示设备</strong>。<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030185121930.png" srcset="/img/loading.gif" lazyload alt="运行hello程序显示结果" style="zoom:50%;" /></p>
 </li>
 </ol>
 <h1 id="1-5-高速缓存至关重要"><a href="#1-5-高速缓存至关重要" class="headerlink" title="1.5 高速缓存至关重要"></a>1.5 高速缓存至关重要</h1><h2 id="1-5-1-CPU运行速度很快，磁盘读写很慢，如何解决速度差"><a href="#1-5-1-CPU运行速度很快，磁盘读写很慢，如何解决速度差" class="headerlink" title="1.5.1 CPU运行速度很快，磁盘读写很慢，如何解决速度差"></a>1.5.1 CPU运行速度很快，磁盘读写很慢，如何解决速度差</h2><p>​       针对这种处理器与主存之间的差异，系统设计者采用了更小更快的存储设备，称为<strong>高速缓存存储器</strong>（cache memory，简称为 cache 或高速缓存），作为暂时的集结区域，存放处理器近期可能会需要的信息。<br>​        比较新的、处理能力更强大的系统甚至有三级高速缓存∶L1、L2 和 L3。系统可以获得一个很大的存储器，同时访问速度也很快，原因是利用了<strong>高速缓存的局部性原理</strong>：即程序具有访问局部区域里的数据和代码的趋势。通过让高速缓存里存放可能经常访问的数据，大部分的内存操作都能在快速的高速缓存中完成。</p>
-<h1 id="1-6-存储设备形成层次结构"><a href="#1-6-存储设备形成层次结构" class="headerlink" title="1.6 存储设备形成层次结构"></a>1.6 存储设备形成层次结构</h1><img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030191316798.png" srcset="/img/loading.gif" lazyload alt="存储器层次结构示例" style="zoom:80%;">
+<h1 id="1-6-存储设备形成层次结构"><a href="#1-6-存储设备形成层次结构" class="headerlink" title="1.6 存储设备形成层次结构"></a>1.6 存储设备形成层次结构</h1><img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030191316798.png" srcset="/img/loading.gif" lazyload alt="存储器层次结构示例" style="zoom:80%;" />
 
 <p>经典图例，多级缓存来提高计算机的运行速度</p>
+<h1 id="1-7-操作系统管理硬件"><a href="#1-7-操作系统管理硬件" class="headerlink" title="1.7 操作系统管理硬件"></a>1.7 操作系统管理硬件</h1><h2 id="操作系统的作用"><a href="#操作系统的作用" class="headerlink" title="操作系统的作用"></a>操作系统的作用</h2><p>1、防止硬件被失控的应用程序滥用<br>2、向应用程序提供简单一致的机制来控制复杂而又通常大不相同的低级硬件设备</p>
+<p>三个重要概念：</p>
+<p><strong>文件：</strong>对I&#x2F;O设备的抽象表示<br><strong>虚拟内存：</strong>对主存和磁盘IO的抽象<br><strong>进程：</strong>对处理器、主存和IO设备的抽象表示</p>
+<h2 id="1-7-1进程"><a href="#1-7-1进程" class="headerlink" title="1.7.1进程"></a>1.7.1进程</h2><p><strong>进程</strong>是操作系统对一个正在运行的程序的一种抽象</p>
+<p><strong>并发运行</strong>：一个进程的指令和另一个进程的指令是交错执行的。</p>
+<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221031184610988.png" srcset="/img/loading.gif" lazyload alt="进程的上下文切换" style="zoom:80%;" />
+
+<p>先进的<strong>多核</strong>处理器同时能够执行多个程序。无论是在单核还是多核系统中，一个 CPU 看上去都像是在并发地执行多个进程，这是通过处理器在进程间切换来实现的。操作系统实现这种交错执行的机制称为<strong>上下文切换</strong>。</p>
+<p>这里上下文切换中，<strong>上下文</strong>是指操作系统保持跟踪运行所要的所有的状态信息。例如：PC和寄存器文件的当前值，以及主存中的内容。<strong>上下文切换三步走</strong>即保存当前进程的上下文、恢复新进程的上下文，然后将控制权传递到新进程。</p>
+<p>从一个进程到另一个进程转换需要经过操作系统<strong>内核</strong>管理。<br>内核是操作系统代码常驻主存的部分。当应用程序需要操作系统的某些操作时，它需要执行一条特殊的<strong>系统调用</strong>指令。</p>
+<p>内核的概念：并非独立进程。而是系统管理<strong>全部进程</strong>所用代码和数据结构的集和。</p>
+<h2 id="1-7-2-线程"><a href="#1-7-2-线程" class="headerlink" title="1.7.2 线程"></a>1.7.2 线程</h2><p>一个进程实际上可以由多个称为<strong>线程</strong>的执行单元组成，每个线程都运行在进程的上下文中，并共享同样的代码和全局数据。</p>
+<h2 id="1-7-3-虚拟内存"><a href="#1-7-3-虚拟内存" class="headerlink" title="1.7.3 虚拟内存"></a>1.7.3 虚拟内存</h2><p>虚拟内存是一个抽象概念，它为每个进程提供了一个假象，即每个<strong>进程</strong>都在<strong>独占</strong>地使用<strong>主存</strong>。</p>
+<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221031190215689.png" srcset="/img/loading.gif" lazyload alt="虚拟地址空间示例" style="zoom:150%;" />
+
+<p><strong>程序代码和数据</strong>。所有的进程，<strong>代码都是同一个固定地址开始</strong>，紧接着是和<strong>C全局变量相对应的数据位置</strong>。代码和数据是直接按照可执行目标文件的内容初始化的。</p>
+<p><strong>堆</strong>。堆是可以运行时动态的扩展和收缩的。</p>
+<p><strong>共享库</strong>。存放类似C标准库和数据库这样共享库的代码和数据的区域。</p>
+<p><strong>栈</strong>。用户虚拟地址空间顶部的是<strong>用户栈</strong>，用户栈在程序执行期间可以动态地扩展和收缩。特别地，每次我们调用一个函数时，栈就会增长；从一个函数返回时，栈就会收缩</p>
+<p><strong>内核虚拟内存</strong>。为内核保留，不允许应用程序读写这个区域的内容或者直接调用内核代码定义的函数。</p>
+<p>虚拟内存的运作需要硬件和操作系统软件之间精密复杂的交互，包括对处理器生成的每个<strong>地址的硬件翻译</strong>。基本思想是把一个进程<strong>虚拟内存</strong>的内容存储在<strong>磁盘</strong>上，然后用主存作为磁盘的高速缓存。</p>
+<h2 id="1-7-4-文件"><a href="#1-7-4-文件" class="headerlink" title="1.7.4 文件"></a>1.7.4 文件</h2><p>文件本质就是字节序列</p>
 
                 
               </div>
