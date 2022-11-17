@@ -16,27 +16,29 @@
   <meta name="author" content="潘恒康">
   <meta name="keywords" content="cpp">
   
-    <meta name="description" content="程序如何运行起来的？参考：https:&#x2F;&#x2F;time.geekbang.org&#x2F;article&#x2F;369457?code&#x3D;Wsnr97yd4YlBVh6-MIULynIv89rgEjd5QOG0Z1a9Jp0%3D 和 CSAPP 程序的编译过程   预处理：预处理器（cpp） ​      将源程序进行预处理替换。例如#include XXX，就会将XXX文件内容替换到这个源程序中 #define">
+    <meta name="description" content="什么是版本控制？版本控制（Revision control）是一种在开发的过程中用于管理我们对文件、目录或工程等内容的修改历史，方便查看更改历史记录，备份以便恢复以前的版本的软件工程技术。 Git 分布式版本控制每个人都拥有全部的代码！这样的话就会有一些安全隐患 所有版本信息仓库全部同步到本地的每个用户，这样就可以在本地查看所有版本历史，可以离线在本地提交，只需在连网时push到相应的服务器或其他">
 <meta property="og:type" content="article">
-<meta property="og:title" content="操作系统实战1-程序如何运行的">
-<meta property="og:url" content="http://example.com/2022/10/30/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9E%E6%88%9845%E8%AE%B2-%E7%AC%AC%E4%B8%80%E8%AE%B2/index.html">
+<meta property="og:title" content="git使用">
+<meta property="og:url" content="http://example.com/2022/11/15/git%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="phk&#39;s blog">
-<meta property="og:description" content="程序如何运行起来的？参考：https:&#x2F;&#x2F;time.geekbang.org&#x2F;article&#x2F;369457?code&#x3D;Wsnr97yd4YlBVh6-MIULynIv89rgEjd5QOG0Z1a9Jp0%3D 和 CSAPP 程序的编译过程   预处理：预处理器（cpp） ​      将源程序进行预处理替换。例如#include XXX，就会将XXX文件内容替换到这个源程序中 #define">
+<meta property="og:description" content="什么是版本控制？版本控制（Revision control）是一种在开发的过程中用于管理我们对文件、目录或工程等内容的修改历史，方便查看更改历史记录，备份以便恢复以前的版本的软件工程技术。 Git 分布式版本控制每个人都拥有全部的代码！这样的话就会有一些安全隐患 所有版本信息仓库全部同步到本地的每个用户，这样就可以在本地查看所有版本历史，可以离线在本地提交，只需在连网时push到相应的服务器或其他">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221027161442149.png">
-<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030161348684.png">
-<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030161543221.png">
-<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030162808811.png">
-<meta property="article:published_time" content="2022-10-30T08:08:00.000Z">
-<meta property="article:modified_time" content="2022-10-30T08:34:31.996Z">
+<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/640">
+<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221115101326722.png">
+<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221115180957116.png">
+<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221116101113003.png">
+<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221117105247647.png">
+<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221117165209165.png">
+<meta property="article:published_time" content="2022-11-15T01:57:53.000Z">
+<meta property="article:modified_time" content="2022-11-17T09:04:19.653Z">
 <meta property="article:author" content="潘恒康">
-<meta property="article:tag" content="图灵 冯诺依曼">
+<meta property="article:tag" content="学习使用git">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221027161442149.png">
+<meta name="twitter:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/640">
   
   
   
-  <title>操作系统实战1-程序如何运行的 - phk&#39;s blog</title>
+  <title>git使用 - phk&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -225,7 +227,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="操作系统实战1-程序如何运行的"></span>
+            <span id="subtitle" data-typed-text="git使用"></span>
           
         </div>
 
@@ -236,8 +238,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-30 16:08" pubdate>
-          2022年10月30日 下午
+        <time datetime="2022-11-15 09:57" pubdate>
+          2022年11月15日 上午
         </time>
       </span>
     
@@ -248,7 +250,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k 字
+          2.5k 字
         
       </span>
     
@@ -259,7 +261,7 @@
         
         
         
-          16 分钟
+          21 分钟
         
       </span>
     
@@ -307,78 +309,51 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">操作系统实战1-程序如何运行的</h1>
+            <h1 style="display: none">git使用</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="程序如何运行起来的？"><a href="#程序如何运行起来的？" class="headerlink" title="程序如何运行起来的？"></a>程序如何运行起来的？</h1><p>参考：<a target="_blank" rel="noopener" href="https://time.geekbang.org/article/369457?code=Wsnr97yd4YlBVh6-MIULynIv89rgEjd5QOG0Z1a9Jp0=">https://time.geekbang.org/article/369457?code=Wsnr97yd4YlBVh6-MIULynIv89rgEjd5QOG0Z1a9Jp0%3D</a> 和 CSAPP</p>
-<h2 id="程序的编译过程"><a href="#程序的编译过程" class="headerlink" title="程序的编译过程"></a>程序的编译过程</h2><img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221027161442149.png" srcset="/img/loading.gif" lazyload alt="编译四部曲" style="zoom:150%;" />
+                <h1 id="什么是版本控制？"><a href="#什么是版本控制？" class="headerlink" title="什么是版本控制？"></a>什么是版本控制？</h1><p>版本控制（Revision control）是一种在开发的过程中用于管理我们对文件、目录或工程等内容的修改历史，方便查看更改历史记录，备份以便恢复以前的版本的软件工程技术。</p>
+<h1 id="Git-分布式版本控制"><a href="#Git-分布式版本控制" class="headerlink" title="Git 分布式版本控制"></a>Git 分布式版本控制</h1><p>每个人都拥有全部的代码！这样的话就会有一些安全隐患</p>
+<p>所有版本信息仓库全部同步到<strong>本地的每个用户</strong>，这样就可以在<strong>本地查看所有版本历史</strong>，可以离线在本地提交，只需在<strong>连网时push到相应的服务器或其他用户那里</strong>。由于每个用户那里保存的都是所有的版本数据，<strong>只要有一个用户的设备没有问题就可以恢复所有的数据，但这增加了本地存储空间的占用</strong>。</p>
+<p>不会因为服务器损坏或者网络问题，造成不能工作的情况！</p>
+<p><img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/640" srcset="/img/loading.gif" lazyload alt="分布式版本控制系统"></p>
+<h1 id="SVN-集中式版本控制系统"><a href="#SVN-集中式版本控制系统" class="headerlink" title="SVN 集中式版本控制系统"></a>SVN 集中式版本控制系统</h1><p>所有的版本数据都保存在服务器上，协同开发者从服务器上同步更新或上传自己的修改 </p>
+<p><img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221115101326722.png" srcset="/img/loading.gif" lazyload alt="集中式版本控制系统"></p>
+<p>所有的版本数据都存在服务器上，用户的本地只有自己以前所同步的版本，如果不连网的话，用户就看不到历史版本，也无法切换版本验证问题，或在不同分支工作。而且，所有数据都保存在单一的服务器上，有很大的风险这个服务器会损坏，这样就会丢失所有的数据，当然可以定期备份。</p>
+<h1 id="git配置指令"><a href="#git配置指令" class="headerlink" title="git配置指令"></a>git配置指令</h1><p>所有的配置文件都保存在本地的</p>
+<h2 id="配置查看指令"><a href="#配置查看指令" class="headerlink" title="配置查看指令"></a>配置查看指令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">查看配置</span><br>git config -l <br><span class="hljs-meta prompt_">#</span><span class="language-bash">查看系统config</span><br>git config --system --list<br><span class="hljs-meta prompt_">#</span><span class="language-bash">查看当前用户（global）配置</span><br>git config --global  --list<br></code></pre></td></tr></table></figure>
 
-<ol>
-<li><p><strong>预处理</strong>：预处理器（cpp）</p>
-<p>​      将源程序进行预处理替换。例如#include XXX，就会将XXX文件内容替换到这个源程序中 #define  XXX进行宏替换 #ifndef 将不必要的代码进行过滤。<em>注意typedef不是简单替换</em>。</p>
-</li>
-<li><p><strong>编译</strong>：编译器（ccl）</p>
-<p>​       将预处理的源文件（.i 文件）编译成汇编语言程序。.s<br>​       通过词法分析与语法分析，再确认所有指令符合语法规则后，将其<strong>翻译为等价的代码表达式汇编代码</strong>。</p>
-</li>
-<li><p><strong>汇编</strong>：汇编器（as）</p>
-<p>​      汇编器将hello.s翻译成机器指令，将指令打包成一种”可重定位的目标程序，并将结果保存在目标文件中“目标文件分成两段：<br>​       代码段：程序指令，可读、可执行、不可写<br>​       数据段：放程序的全局变量或者静态变量</p>
-</li>
-<li><p><strong>链接</strong>：链接器（ld）</p>
-<p>​       将有关的<strong>目标文件</strong>彼此链接，也将在一个<strong>文件中引用的符号</strong>同<strong>该符号</strong>在<strong>另一个文件</strong>中定义<strong>链接在一起</strong>，使得所有这些目标文件成为一个<strong>可以装入操作系统</strong>的<strong>统一整体</strong>。</p>
-<p>​       结果就得到 hello 文件，它是一个可执行目标文件（或者简称为可执行文件），可以被加载到内存中，由系统执行。</p>
-</li>
-</ol>
-<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030161348684.png" srcset="/img/loading.gif" lazyload alt="编译流程" style="zoom:67%;" />
+<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">git config --global user.name &quot;phk&quot; #名称<br>git config --global user.email &quot;phk2715394@163.com&quot; # 邮箱 <br></code></pre></td></tr></table></figure>
 
-<h2 id="程序装载执行"><a href="#程序装载执行" class="headerlink" title="程序装载执行"></a>程序装载执行</h2><h3 id="图灵机"><a href="#图灵机" class="headerlink" title="图灵机"></a>图灵机</h3><p>图灵机是一个抽象的模型，它是这样的：有一条<strong>无限长</strong>的纸带，纸带上有无限个小格子，小格子中写有相关的信息，纸带上有一个<strong>读头</strong>，读头能根据纸带小格子里的信息做相关的操作并能<strong>来回移动</strong>。</p>
-<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030161543221.png" srcset="/img/loading.gif" lazyload alt="图灵机模型" style="zoom:150%;" />
+<h1 id="Git-基本理论"><a href="#Git-基本理论" class="headerlink" title="Git 基本理论"></a>Git 基本理论</h1><h2 id="三个本地工作区域"><a href="#三个本地工作区域" class="headerlink" title="三个本地工作区域"></a>三个本地工作区域</h2><p>本地三个工作区域：工作目录（working directory）<br>暂存区(Stage &#x2F; index)<br>资源库(Repository &#x2F; Git Directory)</p>
+ <img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221115180957116.png" srcset="/img/loading.gif" lazyload alt="image-20221115180957116" style="zoom: 67%;" />
 
-<h3 id="冯诺依曼体系结构"><a href="#冯诺依曼体系结构" class="headerlink" title="冯诺依曼体系结构"></a>冯诺依曼体系结构</h3><p><strong>电子计算机使用二进制数制系统和储存程序，并按照程序顺序执行。</strong>冯诺依曼体系结构的核心</p>
-<p>根据冯诺依曼体系结构构成的计算机，必须具有如下功能以及组件：</p>
-<table>
-<thead>
-<tr>
-<th>功能</th>
-<th>组件</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>把程序和数据装入到计算机中</td>
-<td>装载数据和程序的输入设备</td>
-</tr>
-<tr>
-<td>必须具有长期记住程序、数据的中间结果及最终运算结果</td>
-<td>记住程序和数据的存储器</td>
-</tr>
-<tr>
-<td>完成各种算术、逻辑运算和数据传送等数据加工处理</td>
-<td>完成数据加工处理的运算器</td>
-</tr>
-<tr>
-<td>根据需要控制程序走向，并能根据指令控制机器的各部件协调操作</td>
-<td>控制程序执行的控制器</td>
-</tr>
-<tr>
-<td>能够按照要求将处理的数据结果显示给用户</td>
-<td>显示处理结果的输出设备。</td>
-</tr>
-</tbody></table>
-<h2 id="HelloWord程序装入原型计算机"><a href="#HelloWord程序装入原型计算机" class="headerlink" title="HelloWord程序装入原型计算机"></a>HelloWord程序装入原型计算机</h2><p>对hello进行反编译操作，使用odjump操作，以下main部分函数代码</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">000000000000063a</span> &lt;main&gt;:<br>  <span class="hljs-attribute">1</span>列         <span class="hljs-number">2</span>列                            <span class="hljs-number">3</span>列                            <span class="hljs-number">4</span>列<br> <span class="hljs-attribute">63a</span>:	<span class="hljs-number">55</span>                   	push   %rbp<br> <span class="hljs-attribute">63b</span>:	<span class="hljs-number">48</span> <span class="hljs-number">89</span> e5             	mov    %rsp,%rbp<br> <span class="hljs-attribute">63e</span>:	<span class="hljs-number">48</span> <span class="hljs-number">83</span> ec <span class="hljs-number">10</span>          	sub    $<span class="hljs-number">0</span>x10,%rsp<br> <span class="hljs-attribute">642</span>:	<span class="hljs-number">89</span> <span class="hljs-number">7</span>d fc             	mov    %edi,-<span class="hljs-number">0</span>x4(%rbp)<br> <span class="hljs-attribute">645</span>:	<span class="hljs-number">48</span> <span class="hljs-number">89</span> <span class="hljs-number">75</span> f0          	mov    %rsi,-<span class="hljs-number">0</span>x10(%rbp)<br> <span class="hljs-attribute">649</span>:	<span class="hljs-number">48</span> <span class="hljs-number">8</span>d <span class="hljs-number">3</span>d <span class="hljs-number">94</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	lea    <span class="hljs-number">0</span>x94(%rip),%rdi        # <span class="hljs-number">6</span>e4 &lt;_IO_stdin_used+<span class="hljs-number">0</span>x4&gt;<br> <span class="hljs-attribute">650</span>:	e8 bb fe ff ff       	callq  <span class="hljs-number">510</span> &lt;puts@plt&gt;<br> <span class="hljs-attribute">655</span>:	b8 <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span>       	mov    $<span class="hljs-number">0</span>x0,%eax<br> <span class="hljs-attribute">65a</span>:	c9                   	leaveq <br> <span class="hljs-attribute">65b</span>:	c3                   	retq   <br> <span class="hljs-attribute">65c</span>:	<span class="hljs-number">0</span>f <span class="hljs-number">1</span>f <span class="hljs-number">40</span> <span class="hljs-number">00</span>          	nopl   <span class="hljs-number">0</span>x0(%rax)<br></code></pre></td></tr></table></figure>
+<p>Working：工作区，平时存放项目代码的地方<br>Index &#x2F; Stage：<strong>暂存区</strong> 临时存放改动，<strong>事实上只是一个文件</strong>，用来保存即将<strong>提交到文件列表的信息</strong><br>Repository：仓库区（<strong>本地仓库</strong>），安全存放数据的位置，这里<strong>有提交到所有版本的数据</strong>。其中HEAD是指向最新放入仓库的版本<br>Remote：远程仓库，托管代码的服务器 </p>
+<h2 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h2><p>1、在工作目录添加、修改文件；<br>2、将需要进行版本管理的文件放入到暂存区；git add<br>3、将暂存区的文件提交到本地git仓库;git commit<br>4、推送到远程；git push </p>
+<p><img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221116101113003.png" srcset="/img/loading.gif" lazyload alt="image-20221116101113003"></p>
+<p>因此git管理的文件有三种状态，已修改(modified)，已暂存(staged)，已提交(committed)</p>
+<h1 id="Git项目的搭建"><a href="#Git项目的搭建" class="headerlink" title="Git项目的搭建"></a>Git项目的搭建</h1><p>工作目录：希望Git帮助管理的文件夹，可以是项目文件，也可以是一个空目录。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">git init # 创建全新的仓库<br>git clone # 下载现成的仓库<br></code></pre></td></tr></table></figure>
 
-<p>分成四列：第一列为<strong>地址</strong>；第二列为十六进制，表示<strong>真正装入机器中的代码数据</strong>；第三列是对应的汇编代码；第四列是相关代码的注释。这是 x86_64 体系的代码，由此可以看出 x86 CPU 是变长指令集。</p>
-<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030162808811.png" srcset="/img/loading.gif" lazyload alt="helloworld文件加载到冯诺依曼模型" style="zoom:150%;" />
+<h1 id="Git文件操作"><a href="#Git文件操作" class="headerlink" title="Git文件操作"></a>Git文件操作</h1><h2 id="文件的四种状态"><a href="#文件的四种状态" class="headerlink" title="文件的四种状态"></a>文件的四种状态</h2><ul>
+<li>Untracked:未跟踪，此文件在文件夹中，但是没有加入到git库，不参与版本控制。<br>通过<strong>git add</strong> 将状态变为 <strong>Staged</strong>。比如：新建立的文件，是没有跟踪的</li>
+<li>Unmodify：文件已经入库，没有修改，版本库中的文件快照内容和文件夹中的内容一样。<br>1、如果<strong>后续被修改了</strong>那么就会变为Modified。<br>2、如果使用<strong>git rm</strong>移出版本库则会变成Untracked。</li>
+<li>Modified：文件已经被修改了，仅仅是被修改了，没有别的操作。两个去处：<br>1 git <strong>add</strong>进入到暂存staged状态。<br>2 使用git <strong>checkout</strong> 丢弃修改，返回到Unmodify状态。git checkout会从库中取出文件，覆盖当前的修改。</li>
+<li>Staged：暂存状态。<br>1、执行git <strong>commit</strong>则将修改同步到库中，<strong>这时候库中的文件和本地的文件又变成了一致的</strong>，文件为Unmodify状态。<br>2、执行git <strong>reset</strong> HEAD filename则取消暂存，文件又变成<strong>Modified</strong>状态。</li>
+</ul>
+<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221117105247647.png" srcset="/img/loading.gif" lazyload alt="image-20221117105247647" style="zoom:200%;" />
 
-<p>CPU在图灵机纸带上操作</p>
-<h2 id="思考：call-和-ret-指令在逻辑上执行的操作？"><a href="#思考：call-和-ret-指令在逻辑上执行的操作？" class="headerlink" title="思考：call 和 ret 指令在逻辑上执行的操作？"></a>思考：call 和 ret 指令在逻辑上执行的操作？</h2><p>为了实现 C 语言中函数的调用和返回功能，CPU 实现了函数调用和返回指令，即上图汇编代码中的“call”，“ret”指令，请你思考一下：call 和 ret 指令在逻辑上执行的操作是怎样的呢？</p>
-<p> 首先假设CPU执行指令是顺序执行的，那么程序的调用需要考虑几个问题: </p>
-<p>1，call指令要执行的代码在哪？也就是被调用函数的第一条指令所在的内存地址 </p>
-<p>2，被调用函数执行完之后，返回哪个位置继续执行？ </p>
-<p>只要解决<strong>上面这两个问题</strong>，那么函数调用时指令的间的跳转就迎刃而解了。 </p>
-<p>针对第一个问题，在gcc编译完成之后，<strong>函数对应的指令序列所在的位置就已经确定了</strong>，因此这是编译阶段需要考虑的问题 </p>
-<p>至于第二个问题，<strong>在执行完call指令的同时</strong>，需要将call指令下面一条<strong>指令的地址保存到栈内存中</strong>，同时更新%rsp寄存器指向的位置，然后就可以开始执行被调函数的指令序列，执行完毕后，<strong>由ret指令从rsp中获取栈顶的returnadress地址</strong>，然后跳转到call的下一条指令继续执行。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">查看指定文件的状态</span><br>git status [filename]<br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看所有文件的状态</span><br>git status<br><span class="hljs-meta prompt_"># </span><span class="language-bash">添加所有文件到暂存区</span><br>git add *<br><span class="hljs-meta prompt_"># </span><span class="language-bash">提交暂存区的内容到本地仓库</span><br>git commit -m &quot;消息内容&quot;<br></code></pre></td></tr></table></figure>
+
+<h2 id="忽略文件"><a href="#忽略文件" class="headerlink" title="忽略文件"></a>忽略文件</h2><p>有时候，我们不希望某些文件纳入到版本控制中，比如 数据库文件、临时文件、设计文件等等。</p>
+<p>在主目录下建立”.gitignore”文件，此文件有如下规则：<br>1、忽略文件中的空行或者以井号（#）开始的行就会被忽略<br>2、可以使用Linux通配符。比如：星号（*）代表任意多个字符，问号（？）表示一个字符，方括号（[abc]）表示可以选字符范围，大括号（{string1,string2,string3….}）可选的字符串<br>3、如果名称的最前面是一个感叹号（！）表示例外规则，将不可以被忽略<br>4、文件的最前面是一个路径分割符，表示要忽略的文件在此目录下，而其子目录中的文件不可以被忽略<br>5、如果名称的最后面一个路径分隔符（&#x2F;）表示要忽略的是此目录下该名称的子目录，而非文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">*.txt        #忽略所有 .txt结尾的文件,这样的话上传就不会被选中！<br>!lib.txt     #但lib.txt除外<br>/temp        #仅忽略项目根目录下的TODO文件,不包括其它目录temp<br>build/       #忽略build/目录下的所有文件<br>doc/*.txt    #会忽略 doc/notes.txt 但不包括 doc/server/arch.txt<br></code></pre></td></tr></table></figure>
+
+<h1 id="git-分支"><a href="#git-分支" class="headerlink" title="git 分支"></a>git 分支</h1><p><img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221117165209165.png" srcset="/img/loading.gif" lazyload alt="git分支"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">列出来所有的本地分支</span><br>git branch<br><span class="hljs-meta prompt_"># </span><span class="language-bash">列出来所有的远程分支</span><br>git branch -r<br><span class="hljs-meta prompt_"># </span><span class="language-bash">新建一个分支，但依然停留在当前分支</span><br>git branch [branch-name]<br><span class="hljs-meta prompt_"># </span><span class="language-bash">新建一个分支，并且切换到该分支</span><br>git checkout -b [branch-name]<br><span class="hljs-meta prompt_"># </span><span class="language-bash">合并指定分支到当前分支</span><br>git merge [branch]<br><span class="hljs-meta prompt_"># </span><span class="language-bash">删除分支</span><br>git branch -d [branch-name]<br><span class="hljs-meta prompt_"># </span><span class="language-bash">删除远程的分支</span><br>git push orgin --delete [branch-name]<br>git branch -dr [remote/branch]<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -391,7 +366,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%9B%BE%E7%81%B5-%E5%86%AF%E8%AF%BA%E4%BE%9D%E6%9B%BC/">#图灵 冯诺依曼</a>
+        <a href="/tags/%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8git/">#学习使用git</a>
       
     </div>
   
@@ -403,8 +378,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>操作系统实战1-程序如何运行的</div>
-      <div>http://example.com/2022/10/30/操作系统实战45讲-第一讲/</div>
+      <div>git使用</div>
+      <div>http://example.com/2022/11/15/git使用/</div>
     </div>
     <div class="license-meta">
       
@@ -416,7 +391,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年10月30日</div>
+          <div>2022年11月15日</div>
         </div>
       
       
@@ -448,18 +423,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/10/30/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="动态规划">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">动态规划</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/10/30/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9E%E6%88%9845%E8%AE%B2-%E7%AC%AC%E4%B8%89%E8%AE%B2/" title="操作系统实战1-内核结构与设计">
-                        <span class="hidden-mobile">操作系统实战1-内核结构与设计</span>
+                      <a href="/2022/10/31/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9E%E6%88%9845%E8%AE%B2-%E7%AC%AC%E4%BA%8C%E8%AE%B2/" title="操作系统实战2-实现一个最简单的内核">
+                        <span class="hidden-mobile">操作系统实战2-实现一个最简单的内核</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

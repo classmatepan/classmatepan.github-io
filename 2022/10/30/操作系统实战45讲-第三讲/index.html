@@ -16,27 +16,24 @@
   <meta name="author" content="潘恒康">
   <meta name="keywords" content="cpp">
   
-    <meta name="description" content="程序如何运行起来的？参考：https:&#x2F;&#x2F;time.geekbang.org&#x2F;article&#x2F;369457?code&#x3D;Wsnr97yd4YlBVh6-MIULynIv89rgEjd5QOG0Z1a9Jp0%3D 和 CSAPP 程序的编译过程   预处理：预处理器（cpp） ​      将源程序进行预处理替换。例如#include XXX，就会将XXX文件内容替换到这个源程序中 #define">
+    <meta name="description" content="操作系统内核做什么的？内核就是计算机资源的管理者。管理资源是为了让应用程序更好的使用资源。 计算机资源有哪些？1、硬件资源 总线，负责连接各种其它设备，是其它设备工作的基础。  CPU，即中央处理器，负责执行程序和处理数据运算。  内存，负责储存运行时的代码和数据。  硬盘，负责长久储存用户文件数据。  网卡，负责计算机与计算机之间的通信。  显卡，负责显示工作。  各种 I&#x2F;O 设备，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="操作系统实战1-程序如何运行的">
-<meta property="og:url" content="http://example.com/2022/10/30/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9E%E6%88%9845%E8%AE%B2-%E7%AC%AC%E4%B8%80%E8%AE%B2/index.html">
+<meta property="og:title" content="操作系统实战1-内核结构与设计">
+<meta property="og:url" content="http://example.com/2022/10/30/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9E%E6%88%9845%E8%AE%B2-%E7%AC%AC%E4%B8%89%E8%AE%B2/index.html">
 <meta property="og:site_name" content="phk&#39;s blog">
-<meta property="og:description" content="程序如何运行起来的？参考：https:&#x2F;&#x2F;time.geekbang.org&#x2F;article&#x2F;369457?code&#x3D;Wsnr97yd4YlBVh6-MIULynIv89rgEjd5QOG0Z1a9Jp0%3D 和 CSAPP 程序的编译过程   预处理：预处理器（cpp） ​      将源程序进行预处理替换。例如#include XXX，就会将XXX文件内容替换到这个源程序中 #define">
+<meta property="og:description" content="操作系统内核做什么的？内核就是计算机资源的管理者。管理资源是为了让应用程序更好的使用资源。 计算机资源有哪些？1、硬件资源 总线，负责连接各种其它设备，是其它设备工作的基础。  CPU，即中央处理器，负责执行程序和处理数据运算。  内存，负责储存运行时的代码和数据。  硬盘，负责长久储存用户文件数据。  网卡，负责计算机与计算机之间的通信。  显卡，负责显示工作。  各种 I&#x2F;O 设备，">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221027161442149.png">
-<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030161348684.png">
-<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030161543221.png">
-<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030162808811.png">
+<meta property="og:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221106191740897.png">
 <meta property="article:published_time" content="2022-10-30T08:08:00.000Z">
-<meta property="article:modified_time" content="2022-10-30T08:34:31.996Z">
+<meta property="article:modified_time" content="2022-11-06T11:30:37.152Z">
 <meta property="article:author" content="潘恒康">
-<meta property="article:tag" content="图灵 冯诺依曼">
+<meta property="article:tag" content="微内核 宏内核">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221027161442149.png">
+<meta name="twitter:image" content="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221106191740897.png">
   
   
   
-  <title>操作系统实战1-程序如何运行的 - phk&#39;s blog</title>
+  <title>操作系统实战1-内核结构与设计 - phk&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -225,7 +222,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="操作系统实战1-程序如何运行的"></span>
+            <span id="subtitle" data-typed-text="操作系统实战1-内核结构与设计"></span>
           
         </div>
 
@@ -248,7 +245,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k 字
+          518 字
         
       </span>
     
@@ -259,7 +256,7 @@
         
         
         
-          16 分钟
+          5 分钟
         
       </span>
     
@@ -307,79 +304,39 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">操作系统实战1-程序如何运行的</h1>
+            <h1 style="display: none">操作系统实战1-内核结构与设计</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="程序如何运行起来的？"><a href="#程序如何运行起来的？" class="headerlink" title="程序如何运行起来的？"></a>程序如何运行起来的？</h1><p>参考：<a target="_blank" rel="noopener" href="https://time.geekbang.org/article/369457?code=Wsnr97yd4YlBVh6-MIULynIv89rgEjd5QOG0Z1a9Jp0=">https://time.geekbang.org/article/369457?code=Wsnr97yd4YlBVh6-MIULynIv89rgEjd5QOG0Z1a9Jp0%3D</a> 和 CSAPP</p>
-<h2 id="程序的编译过程"><a href="#程序的编译过程" class="headerlink" title="程序的编译过程"></a>程序的编译过程</h2><img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221027161442149.png" srcset="/img/loading.gif" lazyload alt="编译四部曲" style="zoom:150%;" />
-
-<ol>
-<li><p><strong>预处理</strong>：预处理器（cpp）</p>
-<p>​      将源程序进行预处理替换。例如#include XXX，就会将XXX文件内容替换到这个源程序中 #define  XXX进行宏替换 #ifndef 将不必要的代码进行过滤。<em>注意typedef不是简单替换</em>。</p>
+                <h2 id="操作系统内核做什么的？"><a href="#操作系统内核做什么的？" class="headerlink" title="操作系统内核做什么的？"></a>操作系统内核做什么的？</h2><p>内核就是<strong>计算机资源</strong>的管理者。管理资源是为了让应用程序更好的使用资源。</p>
+<h2 id="计算机资源有哪些？"><a href="#计算机资源有哪些？" class="headerlink" title="计算机资源有哪些？"></a>计算机资源有哪些？</h2><h3 id="1、硬件资源"><a href="#1、硬件资源" class="headerlink" title="1、硬件资源"></a>1、硬件资源</h3><ol>
+<li><p>总线，负责连接各种其它设备，是其它设备工作的基础。</p>
 </li>
-<li><p><strong>编译</strong>：编译器（ccl）</p>
-<p>​       将预处理的源文件（.i 文件）编译成汇编语言程序。.s<br>​       通过词法分析与语法分析，再确认所有指令符合语法规则后，将其<strong>翻译为等价的代码表达式汇编代码</strong>。</p>
+<li><p>CPU，即中央处理器，负责执行程序和处理数据运算。</p>
 </li>
-<li><p><strong>汇编</strong>：汇编器（as）</p>
-<p>​      汇编器将hello.s翻译成机器指令，将指令打包成一种”可重定位的目标程序，并将结果保存在目标文件中“目标文件分成两段：<br>​       代码段：程序指令，可读、可执行、不可写<br>​       数据段：放程序的全局变量或者静态变量</p>
+<li><p>内存，负责储存运行时的代码和数据。</p>
 </li>
-<li><p><strong>链接</strong>：链接器（ld）</p>
-<p>​       将有关的<strong>目标文件</strong>彼此链接，也将在一个<strong>文件中引用的符号</strong>同<strong>该符号</strong>在<strong>另一个文件</strong>中定义<strong>链接在一起</strong>，使得所有这些目标文件成为一个<strong>可以装入操作系统</strong>的<strong>统一整体</strong>。</p>
-<p>​       结果就得到 hello 文件，它是一个可执行目标文件（或者简称为可执行文件），可以被加载到内存中，由系统执行。</p>
+<li><p>硬盘，负责长久储存用户文件数据。</p>
 </li>
+<li><p>网卡，负责计算机与计算机之间的通信。</p>
+</li>
+<li><p>显卡，负责显示工作。</p>
+</li>
+<li><p>各种 I&#x2F;O 设备，如显示器，打印机，键盘，鼠标等。</p>
+<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221106191740897.png" srcset="/img/loading.gif" lazyload alt="计算机结构图---硬件资源结构图" style="zoom: 67%;" /></li>
 </ol>
-<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030161348684.png" srcset="/img/loading.gif" lazyload alt="编译流程" style="zoom:67%;" />
-
-<h2 id="程序装载执行"><a href="#程序装载执行" class="headerlink" title="程序装载执行"></a>程序装载执行</h2><h3 id="图灵机"><a href="#图灵机" class="headerlink" title="图灵机"></a>图灵机</h3><p>图灵机是一个抽象的模型，它是这样的：有一条<strong>无限长</strong>的纸带，纸带上有无限个小格子，小格子中写有相关的信息，纸带上有一个<strong>读头</strong>，读头能根据纸带小格子里的信息做相关的操作并能<strong>来回移动</strong>。</p>
-<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030161543221.png" srcset="/img/loading.gif" lazyload alt="图灵机模型" style="zoom:150%;" />
-
-<h3 id="冯诺依曼体系结构"><a href="#冯诺依曼体系结构" class="headerlink" title="冯诺依曼体系结构"></a>冯诺依曼体系结构</h3><p><strong>电子计算机使用二进制数制系统和储存程序，并按照程序顺序执行。</strong>冯诺依曼体系结构的核心</p>
-<p>根据冯诺依曼体系结构构成的计算机，必须具有如下功能以及组件：</p>
-<table>
-<thead>
-<tr>
-<th>功能</th>
-<th>组件</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>把程序和数据装入到计算机中</td>
-<td>装载数据和程序的输入设备</td>
-</tr>
-<tr>
-<td>必须具有长期记住程序、数据的中间结果及最终运算结果</td>
-<td>记住程序和数据的存储器</td>
-</tr>
-<tr>
-<td>完成各种算术、逻辑运算和数据传送等数据加工处理</td>
-<td>完成数据加工处理的运算器</td>
-</tr>
-<tr>
-<td>根据需要控制程序走向，并能根据指令控制机器的各部件协调操作</td>
-<td>控制程序执行的控制器</td>
-</tr>
-<tr>
-<td>能够按照要求将处理的数据结果显示给用户</td>
-<td>显示处理结果的输出设备。</td>
-</tr>
-</tbody></table>
-<h2 id="HelloWord程序装入原型计算机"><a href="#HelloWord程序装入原型计算机" class="headerlink" title="HelloWord程序装入原型计算机"></a>HelloWord程序装入原型计算机</h2><p>对hello进行反编译操作，使用odjump操作，以下main部分函数代码</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">000000000000063a</span> &lt;main&gt;:<br>  <span class="hljs-attribute">1</span>列         <span class="hljs-number">2</span>列                            <span class="hljs-number">3</span>列                            <span class="hljs-number">4</span>列<br> <span class="hljs-attribute">63a</span>:	<span class="hljs-number">55</span>                   	push   %rbp<br> <span class="hljs-attribute">63b</span>:	<span class="hljs-number">48</span> <span class="hljs-number">89</span> e5             	mov    %rsp,%rbp<br> <span class="hljs-attribute">63e</span>:	<span class="hljs-number">48</span> <span class="hljs-number">83</span> ec <span class="hljs-number">10</span>          	sub    $<span class="hljs-number">0</span>x10,%rsp<br> <span class="hljs-attribute">642</span>:	<span class="hljs-number">89</span> <span class="hljs-number">7</span>d fc             	mov    %edi,-<span class="hljs-number">0</span>x4(%rbp)<br> <span class="hljs-attribute">645</span>:	<span class="hljs-number">48</span> <span class="hljs-number">89</span> <span class="hljs-number">75</span> f0          	mov    %rsi,-<span class="hljs-number">0</span>x10(%rbp)<br> <span class="hljs-attribute">649</span>:	<span class="hljs-number">48</span> <span class="hljs-number">8</span>d <span class="hljs-number">3</span>d <span class="hljs-number">94</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	lea    <span class="hljs-number">0</span>x94(%rip),%rdi        # <span class="hljs-number">6</span>e4 &lt;_IO_stdin_used+<span class="hljs-number">0</span>x4&gt;<br> <span class="hljs-attribute">650</span>:	e8 bb fe ff ff       	callq  <span class="hljs-number">510</span> &lt;puts@plt&gt;<br> <span class="hljs-attribute">655</span>:	b8 <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span>       	mov    $<span class="hljs-number">0</span>x0,%eax<br> <span class="hljs-attribute">65a</span>:	c9                   	leaveq <br> <span class="hljs-attribute">65b</span>:	c3                   	retq   <br> <span class="hljs-attribute">65c</span>:	<span class="hljs-number">0</span>f <span class="hljs-number">1</span>f <span class="hljs-number">40</span> <span class="hljs-number">00</span>          	nopl   <span class="hljs-number">0</span>x0(%rax)<br></code></pre></td></tr></table></figure>
-
-<p>分成四列：第一列为<strong>地址</strong>；第二列为十六进制，表示<strong>真正装入机器中的代码数据</strong>；第三列是对应的汇编代码；第四列是相关代码的注释。这是 x86_64 体系的代码，由此可以看出 x86 CPU 是变长指令集。</p>
-<img src="https://phkblog-1307710240.cos.ap-beijing.myqcloud.com/image-20221030162808811.png" srcset="/img/loading.gif" lazyload alt="helloworld文件加载到冯诺依曼模型" style="zoom:150%;" />
-
-<p>CPU在图灵机纸带上操作</p>
-<h2 id="思考：call-和-ret-指令在逻辑上执行的操作？"><a href="#思考：call-和-ret-指令在逻辑上执行的操作？" class="headerlink" title="思考：call 和 ret 指令在逻辑上执行的操作？"></a>思考：call 和 ret 指令在逻辑上执行的操作？</h2><p>为了实现 C 语言中函数的调用和返回功能，CPU 实现了函数调用和返回指令，即上图汇编代码中的“call”，“ret”指令，请你思考一下：call 和 ret 指令在逻辑上执行的操作是怎样的呢？</p>
-<p> 首先假设CPU执行指令是顺序执行的，那么程序的调用需要考虑几个问题: </p>
-<p>1，call指令要执行的代码在哪？也就是被调用函数的第一条指令所在的内存地址 </p>
-<p>2，被调用函数执行完之后，返回哪个位置继续执行？ </p>
-<p>只要解决<strong>上面这两个问题</strong>，那么函数调用时指令的间的跳转就迎刃而解了。 </p>
-<p>针对第一个问题，在gcc编译完成之后，<strong>函数对应的指令序列所在的位置就已经确定了</strong>，因此这是编译阶段需要考虑的问题 </p>
-<p>至于第二个问题，<strong>在执行完call指令的同时</strong>，需要将call指令下面一条<strong>指令的地址保存到栈内存中</strong>，同时更新%rsp寄存器指向的位置，然后就可以开始执行被调函数的指令序列，执行完毕后，<strong>由ret指令从rsp中获取栈顶的returnadress地址</strong>，然后跳转到call的下一条指令继续执行。</p>
-
+<h3 id="2、软件资源"><a href="#2、软件资源" class="headerlink" title="2、软件资源"></a>2、软件资源</h3><p>计算机中各种形式的数据。比如各种文件、软件程序等等</p>
+<h2 id="内核的内部组成逻辑"><a href="#内核的内部组成逻辑" class="headerlink" title="内核的内部组成逻辑"></a>内核的内部组成逻辑</h2><ol>
+<li><strong>管理CPU</strong>，由于CPU是执行程序的，内核把运行的程序抽象乘进程，所以又称之为<strong>进程管理</strong></li>
+<li>管理内存，地址空间是存储管理器的抽象，<strong>虚拟内存</strong>是地址空间的实现。</li>
+<li><strong>管理磁盘</strong>，磁盘是存放用户数据，内核把用户数据抽象成了文件，<strong>管理文件</strong>就是对于磁盘的管理。</li>
+<li>管理显卡，负责显示信息，管理显卡 即 内核中的图像系统。</li>
+<li>管理网卡，完成网络永兴，网络通信需要的各种通信协议，最后在内核中形成了网络协议栈，网络组件。</li>
+<li>管理各种I&#x2F;O设备</li>
+<li>驱动程序，驱动程序是内核和硬件之间沟通的语言 内核：键盘，把用户的输入给我 键盘：内核说的符合爸爸(开发者)的标准(驱动程序)，听懂了，给他。</li>
+</ol>
+<h2 id="宏内核结构⭐"><a href="#宏内核结构⭐" class="headerlink" title="宏内核结构⭐"></a>宏内核结构⭐</h2>
                 
               </div>
             
@@ -391,7 +348,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%9B%BE%E7%81%B5-%E5%86%AF%E8%AF%BA%E4%BE%9D%E6%9B%BC/">#图灵 冯诺依曼</a>
+        <a href="/tags/%E5%BE%AE%E5%86%85%E6%A0%B8-%E5%AE%8F%E5%86%85%E6%A0%B8/">#微内核 宏内核</a>
       
     </div>
   
@@ -403,8 +360,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>操作系统实战1-程序如何运行的</div>
-      <div>http://example.com/2022/10/30/操作系统实战45讲-第一讲/</div>
+      <div>操作系统实战1-内核结构与设计</div>
+      <div>http://example.com/2022/10/30/操作系统实战45讲-第三讲/</div>
     </div>
     <div class="license-meta">
       
@@ -448,9 +405,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/10/30/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="动态规划">
+                      <a href="/2022/10/30/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9E%E6%88%9845%E8%AE%B2-%E7%AC%AC%E4%B8%80%E8%AE%B2/" title="操作系统实战1-程序如何运行的">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">动态规划</span>
+                        <span class="hidden-mobile">操作系统实战1-程序如何运行的</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -458,8 +415,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/10/30/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9E%E6%88%9845%E8%AE%B2-%E7%AC%AC%E4%B8%89%E8%AE%B2/" title="操作系统实战1-内核结构与设计">
-                        <span class="hidden-mobile">操作系统实战1-内核结构与设计</span>
+                      <a href="/2022/10/27/%E5%8A%9B%E6%89%A3%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" title="力扣每日一题">
+                        <span class="hidden-mobile">力扣每日一题</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
